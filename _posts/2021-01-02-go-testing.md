@@ -1,5 +1,5 @@
 ---
-title:  "Testing in Go"
+title:  "Go언어에서의 테스팅"
 last_modified_at: 
 categories: 
   - Go
@@ -9,14 +9,13 @@ toc: true
 toc_label: "Golang"
 ---
 
-# Go 언어에서의 테스팅
-This content comes from the book "The Go Programming Language"
+The Go Programming Language 원서 11장 (11.1, 11.2)에 해당하는 내용입니다.
 
 ### Test files and Test functions
 
 Go 에서 테스트코드는 “_test.go” 로 끝나는 파일들에 정리된다. 테스트파일 안에서 테스팅을 위해서는 testing 패키지를 임포트해야한다. 저장하는 위치는 테스트하려는 파일과 같은경로에 둔다. moby 같은 오픈소스 프로젝트들은 그렇게 정리되어있다.
 
-Go test 명령어는 _test.go 로 이름이 끝나는 파일들을 스캔하고 위에 언급된 함수들을 찾아내며, 이들을 빌드하고 실행해주는 임시 main package를 만들어낸다. 다 실행항 이후에는 결과를 보고하고 clean up 을 한다.
+`go test` 명령어는 _test.go 로 이름이 끝나는 파일들을 스캔하고 위에 언급된 함수들을 찾아내며, 이들을 빌드하고 실행해주는 임시 main package를 만들어낸다. 다 실행항 이후에는 결과를 보고하고 clean up 을 한다.
 
 테스트케이스를 포함한 테스트함수는 이름이 Test로 시작한다. 그리고 성능측정을 위한 벤치마크 함수는 이름이 Benchmark로 시작한다. 그리고 예제를 Documentation에서 보여주는데 사용되는 예시함수(example function) 은 이름이 Example 로 시작한다.
 
@@ -32,9 +31,9 @@ func TestName(t *testing.T) {
 여기에서 TestName 이라는 함수명에서 Name의 자리에 들어오는 suffix는 대문자로 시작해야한다.
 예를들어 TestSin, TestCos 같은 형식으로 말이다.
 
-테스트 실행하기 (go test)
+테스트 실행하기 (`go test`)
 
-go test 명령어를 이용해서 테스트를 빌드+실행할 수 있다.
+`go test` 명령어를 이용해서 테스트를 빌드+실행할 수 있다.
 `-v` 옵션을 주면 실패한 테스트뿐만 아니라 돌아간 모든 테스트케이스들에 대해 출력해준다.
 
 `-run=<regex>` 옵션을 주면 주어진 정규식을 매치하는 테스트들만 선택적으로 돌아간다. 
@@ -69,7 +68,7 @@ func TestSayHi(t *testing.T) {
 
 ### Whitebox Testing
 
-우선 whitebox testing 과 blackbox testing 의 차이는 내부구조를 알고 그것에 대해 테스트를 하는지이다. 예를 들어 내가 패키지를 만들고 GetStats(data) 라는 함수와 이 함수에서 사용하는 내부함수 getAverage() 가 있다고 치자. 그렇다면 getAverage()에 대해서 테스팅한다면 이것은 whitebox testing을 한것이고, 외부에 노출되는 GetStats 에 대해서 가능한 user input들로 테스트했다면 blackbox testing 을 한것이다. 
+우선 whitebox testing 과 blackbox testing 의 차이는 내부구조를 알고 그것에 대해 테스트를 하는지이다. 예를 들어 내가 패키지를 만들고 GetStats() 라는 함수와 이 함수에서 사용하는 내부함수 getAverage() 가 있다고 치자. 그렇다면 getAverage()에 대해서 테스팅한다면 이것은 whitebox testing을 한것이고, 외부에 노출되는 GetStats 에 대해서 가능한 user input들로 테스트했다면 blackbox testing 을 한것이다. 
 
 앞선 경우와 유사하다. 다만 앞에서는 유저입장에서 standard output을 쓸거라는걸 알고 있었지만 이번에 들 예시는 함수 내부적으로 email을 보내는 경우이다. 
 
@@ -126,7 +125,7 @@ net/url_test -> net/http
 하지만 외부패키지라면 외부로 export 되지 않는 부분들에 대해 어떻게 Whitebox Testing을 할까?
 
 정답부터 말하자면 export 되지않는 요소들을 노출시켜주는 "백도어"를 만들어준다.
-fmt 패키지를 살펴볼텐데, 여기에서 export_test.go 라는 파일이 이러한 역할을 한다. 파일을 열어보면 별거 없다.
+fmt 패키지를 살펴볼텐데, 여기에서 `export_test.go` 라는 파일이 이러한 역할을 한다. 파일을 열어보면 별거 없다.
 
 ```
 // Copyright 2012 The Go Authors. All rights reserved.
