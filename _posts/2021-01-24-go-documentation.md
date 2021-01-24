@@ -1,0 +1,66 @@
+---
+title:  "Go언어에서의 문서화"
+last_modified_at: 
+categories: 
+  - Go
+tags:
+  - Documentation
+toc: true
+toc_label: "Golang"
+---
+
+The Go Programming Language 원서 10장 (10.7.4)에 해당하는 내용입니다.
+
+### Intro
+Golang 에서는 자체적으로 문서화를 위한 툴을 제공한다. go tool로 문서를 볼수 있지만 `godoc` 이라는 다른 도구 또한 사용한다.  
+
+큰 프로젝트라면 따로 문서페이지를 만드는 경우도 많지만 이러한 컨벤션을 따르는게 다른 코드들과 일관성을 맞추는데 있어서 좋다.
+
+### Doccumentation 보기
+함수,변수 등에 대한 문서화를 할때는 첫 문장이 함수/변수 명으로 시작하며 한문장으로 간단한 요약을 제공하는게 일반적이다. 추가적인 설명을 위해서는 그다음줄을 추가해준다.
+
+패키지의 경우 패키지 선언이 여러개의 소스파일에서 이루어질수 있는데 이것을 파일 하나에서만 문서화하면 된다. 설명이 길어질수도 있는데 이런경우 파일을 따로 선언하는경우가 있다. `doc.go` 라는 파일을 따로 만들어서 패키지 관련 설명을 적어놓는 것이 일반적이며, fmt 패키지의 경우 이 방식을 패키지 관련설명이 따로 `doc.go` 파일에 정리되어있다.
+
+`go doc fmt` 를 터미널에 치면 그 안의 내용이 나올것이다.
+
+위에서는 go doc fmt 를 이용해서 패키지 관련 문서를 cli 로 볼수 있었는데 이것은 패키지 멤버나 메서드에도 사용 가능하다. 
+
+`go doc time.Since`  
+`go doc time.Duration.Seconds`  
+를 사용하면 Since 함수, 그리고 Duraion 타입의 Seconds 메서드에 관한 설명을 볼 수 있다.
+
+그리고 대소문자에 민감하거나 path 가 꼭 정확하지 않아도 되는 경우가 있다.
+
+`go doc json.decode `
+
+같은 경우 겹치는 선언이 없다. 다만 문서를 가져오는데 조금 더 오래걸리는것을 볼수 있을것이다.
+
+### Godoc
+
+`godoc` 은 문서를 생성해줘서 html 페이지를 만들어주는 도구다. Go tool 과는 별개의 도구다.  
+
+godoc 서버를 띄우려면 `godoc -http :8000` 으로 실행할수 있다. 물론 포트는 맘대로 설정 가능하다.
+
+### 로컬 리포 문서 확인하기
+로컬 리포에서 문서화 작업을 한것을 커밋/푸시 하기전에 로컬 환경에서 확인해 볼 수 있다.
+
+이럴려면 `go.mod` 파일이 있어야 하는데 아래와 같은 `go mod init` 예시처럼 `go mod init` 으로 `go.mod` 파일을 생성해준다.
+
+```
+go mod init github.com/username/reponame
+```
+
+이러면 경로 안에 `go.mod` 파일이 생성되고 `godoc` 명령어가 이것을 인식해서 로컬에 문서화 해놓은 작업을 볼 수 있을것이다.
+
+godoc 서버를 키고 브라우저를 통해 확인하자  
+```
+godoc -http :8000
+```
+
+`go mod init` 할때 사용한 경로를 통해 바로 문서를 확인할수 있다.
+`localhost:8000/pkg/github.com/ysung6/reponame` 으로 들어가면 문서를 바로 볼 수 있지만 나는 주소창에 이렇게 길게 치기 귀찮아서
+
+`localhost:8000/pkg/` 만 치고 나오는 목차에서 reponame 을 검색해서 들어간다.
+
+만약에 go.mod 파일이 없다면 문서 생성을 GOPATH 기준으로 하는데  
+`using GOPATH mode` 라는 메세지를 받을 것이다. 이러면 GOPATH의 src 경로 아래에 있는 코드에 대해서만 문서가 생성된다.
