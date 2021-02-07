@@ -1,5 +1,5 @@
 ---
-title:  "Swagger Documentation for you Django Rest Framework project (drf-yasg)"
+title:  "Swagger Documentation for your Django Rest Framework project (drf-yasg)"
 last_modified_at: 
 categories: 
   - Python, Django
