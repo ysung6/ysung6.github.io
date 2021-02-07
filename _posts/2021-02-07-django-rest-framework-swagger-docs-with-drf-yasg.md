@@ -111,7 +111,7 @@ class ArbitrarySerializer(ModelSerializer):
 
 ```
 We refresh the swagger document
-![IMAGE](images/swagger_renamed_model.png)
+![IMAGE](./images/swagger_renamed_model.png)
 
 Now we cannot find the Model for ArbitraryNode and we see a model called penguin instead of Arbitrary.
 
@@ -130,7 +130,7 @@ class ArbitrarySerializer(ModelSerializer):
 ```
 This will now add a description.
 
-![IMAGE](images/swagger_model_with_description.png)
+![IMAGE](./images/swagger_model_with_description.png)
 
 
 
@@ -161,10 +161,10 @@ If you have a multi-line docstring, you can provide a one-line summary about the
         """
 ```
 This will result in a more visually rich documentation.
-![IMAGE](images/swagger_docstring_markdown.png)
+![IMAGE](./images/swagger_docstring_markdown.png)
 
 Note that we can see a 1-line summary unlike other endpoints
-![IMAGE](images/swagger_summary_line.png)
+![IMAGE](./images/swagger_summary_line.png)
 
 
 ### Closing Remarks
