@@ -130,7 +130,7 @@ class ArbitrarySerializer(ModelSerializer):
 ```
 This will now add a description.
 
-![IMAGE](../assets/images/swagger_model_with_description.png)
+![IMAGE](/assets/images/swagger_model_with_description.png)
 
 
 
@@ -161,10 +161,10 @@ If you have a multi-line docstring, you can provide a one-line summary about the
         """
 ```
 This will result in a more visually rich documentation.
-![IMAGE](../assets/images/swagger_docstring_markdown.png)
+![DocstringSwagger]({{ "/assets/images/swagger_docstring_markdown.png" | absolute_url }})
 
 Note that we can see a 1-line summary unlike other endpoints
-![IMAGE](../assets/images/swagger_summary_line.png)
+![IMAGE](/assets/images/swagger_summary_line.png)
 
 
 ### Closing Remarks
